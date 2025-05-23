@@ -12,6 +12,9 @@ module.exports = {
           '100%': { transform: 'translateX(0)', opacity: 1 },
         },
       },
+       fontFamily: {
+      inter: ['Inter', 'sans-serif'],
+    },
       animation: {
         softSlideIn: 'softSlideIn 0.6s ease-out forwards',
       },
