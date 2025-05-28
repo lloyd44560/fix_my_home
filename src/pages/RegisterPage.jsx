@@ -8,9 +8,9 @@ export default function RegisterPage() {
         <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
             
              <div class="my-12 border-b text-center">
-                    <div class="text-sm text-gray-600 tracking-wide font-medium mt-4">
-                        Login as Renter
-                      </div>
+                    {/* <div class="text-sm text-gray-600 tracking-wide font-medium mt-4">
+                        Regis
+                      </div> */}
               </div>
             <div class="mt-12 flex flex-col items-left">
                 <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold">
@@ -22,10 +22,7 @@ export default function RegisterPage() {
                  
                 <div class="w-full flex-1 mt-8">
                     <div class="flex flex-col items-center">
-                    
                     </div>
-
-                    
                 <div class="max-w-md mx-auto">
                   <div class="mb-5">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Name *</label>
