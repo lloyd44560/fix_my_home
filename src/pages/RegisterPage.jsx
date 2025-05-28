@@ -8,7 +8,7 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import StepConnector from '@mui/material/StepConnector';
-
+import { useNavigate } from 'react-router-dom';
 const steps = ['My Details', 'Agent Details', 'House Details'];
 
 const NoLineConnector = styled(StepConnector)(() => ({
@@ -44,7 +44,7 @@ const RenterRegistration = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '', email: '', password: '', confirmPassword: '', phone: '',
     company: '', contactPerson: '', contactPhone: '', contactAddress: '',
@@ -64,6 +64,8 @@ const RenterRegistration = () => {
   const handleBack = () => setActiveStep((prev) => prev - 1);
   const handleSubmit = () => {
     console.log('Form submitted:', formData);
+     // Redirect to /home
+    navigate('/home');
   };
 
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);

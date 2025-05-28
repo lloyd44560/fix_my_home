@@ -38,12 +38,14 @@ export default function LoginPage() {
 
                 <span className="text-gray-600 text-sm font-medium">Forgot Password?</span>
 
-                <button
-                  className="w-full mt-5 font-semibold bg-[#086cfc] text-white py-3 rounded-lg 
-                  hover:bg-[#4795fd] transition duration-300 flex items-center justify-center"
-                >
-                  <span className="ml-2">Login</span>
-                </button>
+              <a href="/home" className="w-full block mt-5">
+                  <button
+                    className="w-full font-semibold bg-[#086cfc] text-white py-3 rounded-lg 
+                    hover:bg-[#4795fd] transition duration-300 flex items-center justify-center"
+                  >
+                    <span className="ml-2">Login</span>
+                  </button>
+                </a>
 
                 <div className="text-center mt-4">
                   <span className="text-gray-600 text-sm font-medium">
