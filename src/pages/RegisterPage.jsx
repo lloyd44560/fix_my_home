@@ -224,9 +224,7 @@ const RenterRegistration = () => {
             color: '#fff',
             '&:hover': {
               backgroundColor: '#4da1ff', // lighter blue on hover
-            },
-    
-              
+            },          
               borderRadius: 2, px: isMobile ? 2 : 4 }}
           >
             Submit
