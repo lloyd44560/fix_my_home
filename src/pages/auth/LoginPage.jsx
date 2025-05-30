@@ -1,13 +1,13 @@
 import React from 'react';
 import AuthLayout from '../../layouts/AuthLayout';
-import {TextInput} from '../../components/form/InputFields';
+import { TextInput } from '../../components/form/InputFields';
 import { Box } from '@mui/material';
 
-import PrimaryButton from '../../components/form/PrimaryButton';
+import { PrimaryButton } from '../../components/form/ButtonForm';
 import DividerWithText from '../../components/form/DividerWithText';
 import SocialButtons from '../../components/form/SocialButtons';
 
-export default function TraderLoginPage() {
+export default function LoginPage() {
   return (
     <AuthLayout title="Login as Trader">
       <div className="flex flex-col items-start mt-4">
@@ -25,7 +25,11 @@ export default function TraderLoginPage() {
           <div className="text-sm text-gray-600 font-medium mt-2">Forgot Password?</div>
 
           <a href="/home" className="w-full block mt-5">
-            <PrimaryButton text="Login" />
+            <PrimaryButton text="Login" className={`
+              bg-blue-700 text-white rounded-lg
+              hover:bg-blue-500
+              px-6 py-3 w-full transition-colors duration-300
+            `}/>
           </a>
 
           <div className="text-center mt-4">
