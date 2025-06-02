@@ -1,5 +1,7 @@
 import React from 'react';
-import {TextField, InputAdornment, IconButton} from '@mui/material';
+import {
+  TextField, InputAdornment, IconButton,
+} from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export const TextInput = ({ label, name, type = 'text', value, onChange, ...props }) => (
@@ -17,7 +19,36 @@ export const TextInput = ({ label, name, type = 'text', value, onChange, ...prop
   />
 );
 
-export const NumberInput = ({label, name, type = 'number', value, onChange, min, max, ...props}) => (
+export const ModalInput = ({ 
+  label, 
+  margin, 
+  type = 'text', 
+  value, 
+  onChange, 
+  ...props 
+}) => (
+  <TextField
+    label={label}
+    margin={margin}
+    type={type}
+    value={value}
+    onChange={onChange}
+    fullWidth
+    variant="outlined"
+    autoFocus
+  />
+);
+
+export const NumberInput = ({
+  label, 
+  name, 
+  type = 'number', 
+  value, 
+  onChange, 
+  min, 
+  max, 
+  ...props
+}) => (
   <TextField
     id={name}
     label={label}
@@ -35,7 +66,14 @@ export const NumberInput = ({label, name, type = 'number', value, onChange, min,
   />
 );
 
-export const PasswordInput = ({ label, name, value, onChange, show, toggleShow }) => (
+export const PasswordInput = ({ 
+  label, 
+  name, 
+  value, 
+  onChange, 
+  show, 
+  toggleShow 
+}) => (
   <TextField
     id={name}
     label={label}

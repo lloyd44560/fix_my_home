@@ -3,13 +3,13 @@ import AuthLayout from '../../layouts/AuthLayout';
 import { TextInput } from '../../components/form/InputFields';
 import { Box } from '@mui/material';
 
-import { PrimaryButton } from '../../components/form/ButtonForm';
+import { LoginButton } from '../../components/form/ButtonForm';
 import DividerWithText from '../../components/form/DividerWithText';
 import SocialButtons from '../../components/form/SocialButtons';
 
 export default function LoginPage() {
   return (
-    <AuthLayout title="Login as Trader">
+    <AuthLayout title="">
       <div className="flex flex-col items-start mt-4">
         <h1 className="text-3xl font-extrabold mb-6">Welcome To Fix My House.</h1>
 
@@ -25,11 +25,7 @@ export default function LoginPage() {
           <div className="text-sm text-gray-600 font-medium mt-2">Forgot Password?</div>
 
           <a href="/home" className="w-full block mt-5">
-            <PrimaryButton text="Login" className={`
-              bg-blue-700 text-white rounded-lg
-              hover:bg-blue-500
-              px-6 py-3 w-full transition-colors duration-300
-            `}/>
+            <LoginButton text="Login" />
           </a>
 
           <div className="text-center mt-4">
