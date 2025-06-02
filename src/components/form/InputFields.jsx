@@ -19,26 +19,6 @@ export const TextInput = ({ label, name, type = 'text', value, onChange, ...prop
   />
 );
 
-export const ModalInput = ({ 
-  label, 
-  margin, 
-  type = 'text', 
-  value, 
-  onChange, 
-  ...props 
-}) => (
-  <TextField
-    label={label}
-    margin={margin}
-    type={type}
-    value={value}
-    onChange={onChange}
-    fullWidth
-    variant="outlined"
-    autoFocus
-  />
-);
-
 export const NumberInput = ({
   label, 
   name, 

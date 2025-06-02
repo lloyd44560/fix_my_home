@@ -4,8 +4,8 @@ import LandingPage from './pages/renterPages/LandingPage';
 import RegisterPage from './pages/renterPages/RegisterPage';
 import HomePage from './pages/renterPages/HomePage';
 
-import TraderRegisterPage from './pages/tradePages/TraderRegisterPage';
-import TraderHomePage from './pages/tradePages/TraderHomePage';
+import TraderRegisterPage from './pages/traderPages/traderRegister/TraderRegisterPage';
+import TraderHomePage from './pages/traderPages/TraderHomePage';
 
 function App() {
   return (
