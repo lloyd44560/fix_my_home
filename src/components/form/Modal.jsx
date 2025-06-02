@@ -7,23 +7,25 @@ import {
   Button,
 } from '@mui/material';
 
-import { ModalInput } from '../../components/form/InputFields';
+import { TextInput } from './InputFields';
 
-const LicenseModal = ({
+const Modal = ({
   open,
   onClose,
   onSave,
   value,
+  type = 'number',
   onChange,
-  title = 'Add License',
-  label = 'License number',
+  title,
+  label,
 }) => {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
-        <ModalInput
+        <TextInput
           fullWidth
+          type={type}
           autoFocus
           margin="dense"
           label={label}
@@ -41,4 +43,4 @@ const LicenseModal = ({
   );
 };
 
-export default LicenseModal;
+export default Modal;
