@@ -2,22 +2,40 @@ import React, { useState } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import {
   Stepper, Step, StepLabel,
-  Button, Typography, Box, MenuItem,
-  useMediaQuery, useTheme
+  Button, Typography, Box, 
+  MenuItem, useMediaQuery, useTheme,
+  Paper, IconButton, 
+  Switch, FormControlLabel,
 } from '@mui/material';
+import { Add, Delete, Edit } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import StepConnector from '@mui/material/StepConnector';
 
-import {TextInput, PasswordInput} from '../../components/form/InputFields';
+import LabelFor from '../../components/form/LabelFor';
+import { TextInput, PasswordInput } from '../../components/form/InputFields';
+import LicenseModal from '../../components/form/LicenseModal';
 
-const steps = ['My Details', 'Agent Details', 'House Details'];
+const steps = ['Details', 'Company', 'Team', 'Rates'];
 
 const NoLineConnector = styled(StepConnector)(() => ({
   '&.MuiStepConnector-root': {
     display: 'none',
   },
 }));
+
+const industries = [
+  'Air Conditioning',
+  'Cleaning',
+  'Electrical',
+  'Gardening',
+  'General Maintenance',
+  'Glazing',
+  'Pest Control',
+  'Plumbing/Gas',
+  'Tree Cutting',
+  'Steelworks',
+];
 
 const TraderRegisterPage = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -27,10 +45,14 @@ const TraderRegisterPage = () => {
 
   const [formData, setFormData] = useState({
     name: '', email: '', password: '', confirmPassword: '', phone: '',
-    company: '', contactPerson: '', contactPhone: '', contactAddress: '',
-    state: '', zip: '', city: '',
-    uploadOption: '', floorCount: '', roomCount: '', roomType: '', address1: '', address2: '', houseZip: '', houseState: '', houseCity: '', propertyImage: null,
+    companyType: '', companyName: '', companyAddress: '', companyEmail: '',
+    companyLandline: '', contractorLicence: '', license: '', gstRegistered: false,
+    abn: '', industry: '', otherIndustry: ''
   });
+
+  const [licenses, setLicenses] = useState([]);
+  const [newLicense, setNewLicense] = useState('');
+  const [openModal, setOpenModal] = useState(false);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -47,33 +69,214 @@ const TraderRegisterPage = () => {
     navigate('/home');
   };
 
+  const handleAddLicense = () => {
+    if (newLicense.trim() === '') return;
+    setLicenses((prev) => [...prev, newLicense.trim()]);
+    setNewLicense('');
+    setOpenModal(false);
+  };
+
+  const handleDeleteLicense = (index) => {
+    setLicenses(licenses.filter((_, i) => i !== index));
+  };
+
   const renderStepContent = (step) => {
     switch (step) {
       case 0:
         return (
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <TextInput label="Name" name="name" required onChange={handleChange} value={formData.name} />
-            <TextInput label="Email" name="email" type="email" required onChange={handleChange} value={formData.email} />
-            <TextInput label="Phone Number" name="phone" required onChange={handleChange} value={formData.phone} />
-            <PasswordInput label="Password" name="password" show={showPassword} toggleShow={() => setShowPassword(!showPassword)} onChange={handleChange} value={formData.password} />
-            <PasswordInput label="Confirm Password" name="confirmPassword" show={showConfirmPassword} toggleShow={() => setShowConfirmPassword(!showConfirmPassword)} onChange={handleChange} value={formData.confirmPassword} />
+            <Box>
+              <LabelFor name="name" text="Name" required="yes" />
+              <TextInput id="name" label="" name="name" required onChange={handleChange} value={formData.name} />
+            </Box>
+            <Box>
+              <LabelFor name="email" text="Email" required="yes" />
+              <TextInput name="email" type="email" required onChange={handleChange} value={formData.email} />
+            </Box>
+            <Box>
+              <LabelFor name="phone" text="Phone Number" required="yes" />
+              <TextInput name="phone" required onChange={handleChange} value={formData.phone} />
+            </Box>
+            <Box>
+              <LabelFor name="password" text="Password" required="yes" />
+              <PasswordInput name="password" show={showPassword} 
+                toggleShow={() => setShowPassword(!showPassword)} 
+                onChange={handleChange} 
+                value={formData.password} />
+            </Box>
+            <Box>
+              <LabelFor name="confirmPassword" text="Confirm Password" required="yes" />
+              <PasswordInput name="confirmPassword" show={showConfirmPassword} 
+                toggleShow={() => setShowConfirmPassword(!showConfirmPassword)} 
+                onChange={handleChange} 
+                value={formData.confirmPassword} />
+            </Box>
           </Box>
         );
 
       case 1:
         return (
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <TextInput label="Company Name" name="company" onChange={handleChange} value={formData.company} />
-            <TextInput label="Contact Person" name="contactPerson" onChange={handleChange} value={formData.contactPerson} />
-            <TextInput label="Contact Phone" name="contactPhone" onChange={handleChange} value={formData.contactPhone} />
-            <TextInput label="Contact Address" name="contactAddress" onChange={handleChange} value={formData.contactAddress} />
-            <TextInput label="State" name="state" onChange={handleChange} value={formData.state} />
-            <TextInput label="City" name="city" onChange={handleChange} value={formData.city} />
-            <TextInput label="ZIP Code" name="zip" onChange={handleChange} value={formData.zip} />
+            <Box>
+              <LabelFor name="companyType" text="Type of Company" required="yes" />
+              <TextInput
+                select
+                required
+                name="companyType"
+                value={formData.companyType}
+                onChange={handleChange}
+              >
+                <MenuItem value="sole_trader">Sole Trader</MenuItem>
+                <MenuItem value="company">Company</MenuItem>
+              </TextInput>
+            </Box>
+            <Box>
+              <LabelFor name="companyName" text="Company Name" />
+              <TextInput name="companyName" onChange={handleChange} value={formData.companyName} />
+            </Box>
+            <Box>
+              <LabelFor name="companyAddress" text="Company Address" />
+              <TextInput name="companyAddress" onChange={handleChange} value={formData.companyAddress} />
+            </Box>
+            <Box>
+              <LabelFor name="companyEmail" text="Company Email (if available)" />
+              <TextInput name="companyEmail" onChange={handleChange} value={formData.companyEmail} />
+            </Box>
+            <Box>
+              <LabelFor name="companyLandline" text="Company landline number (if available)" />
+              <TextInput name="companyLandline" onChange={handleChange} value={formData.companyLandline} />
+            </Box>
+            <Box>
+              <LabelFor name="contractorLicence" text="Contractor license number" />
+              <TextInput name="contractorLicence" onChange={handleChange} value={formData.contractorLicence} />
+            </Box>
+            <Button
+              variant="outlined"
+              fullWidth
+              startIcon={<Add />}
+              onClick={() => setOpenModal(true)}
+              sx={{ my: 2 }}
+            >
+              Add another license
+            </Button>
+            {licenses.length > 0 && (
+              <Paper elevation={2} sx={{ p: 2, mb: 2 }}>
+                <Typography variant="subtitle1" gutterBottom>
+                  Added Licenses
+                </Typography>
+                {licenses.map((lic, idx) => (
+                  <Box
+                    key={idx}
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    sx={{ mb: 1 }}
+                  >
+                    <Typography>
+                      Contractor License ***{lic.slice(-4)}
+                    </Typography>
+                    <Box>
+                      <IconButton size="small" color="primary">
+                        <Edit fontSize="small" />
+                      </IconButton>
+                      <IconButton
+                        size="small"
+                        color="error"
+                        onClick={() => handleDeleteLicense(idx)}
+                      >
+                        <Delete fontSize="small" />
+                      </IconButton>
+                    </Box>
+                  </Box>
+                ))}
+              </Paper>
+            )}
+            {/* License Modal */}
+            <LicenseModal
+              open={openModal}
+              onClose={() => {
+                setNewLicense('');
+                setOpenModal(false);
+              }}
+              onSave={handleAddLicense}
+              value={newLicense}
+              onChange={setNewLicense}
+            />
+            <FormControlLabel
+              label="Is your company currently registered for GST?"
+              control={
+                <Switch
+                  checked={formData.gstRegistered}
+                  onChange={(e) =>
+                    setFormData({ ...formData, gstRegistered: e.target.checked })
+                  }
+                />
+              }
+            />
+            <Box>
+              <LabelFor name="abn" text="Australian Business Number (ABN)" />
+              <TextInput name="abn" onChange={handleChange} value={formData.abn} />
+            </Box>
+            <Box>
+              <LabelFor name="industry" text="Industry expertise" />
+              <TextInput
+                select
+                required
+                name="industry"
+                value={formData.industry}
+                onChange={handleChange}
+              >
+                <MenuItem value="" disabled>
+                    Choose an industry...
+                  </MenuItem>
+                  {industries.map((industry) => (
+                    <MenuItem key={industry} value={formData.industry}>
+                      {industry}
+                    </MenuItem>
+                  ))}
+              </TextInput>
+            </Box>
+            <Box>
+              <LabelFor name="otherExpertise" text="Other areas of expertise (optional)" />
+              <TextInput select name="otherExpertise"
+                value={formData.industry} onChange={handleChange}
+              >
+                <MenuItem value="" disabled>
+                    Choose an industry...
+                  </MenuItem>
+                  {industries.map((industry) => (
+                    <MenuItem key={industry} value={formData.otherIndustry}>
+                      {industry}
+                    </MenuItem>
+                  ))}
+              </TextInput>
+            </Box>
           </Box>
         );
 
       case 2:
+        return (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {formData.uploadOption === 'manual' && (
+              <>
+                <Button variant="outlined" component="label" sx={{ borderRadius: 2 }}>
+                  Upload Property Photo
+                  <input type="file" hidden name="propertyImage" onChange={handleChange} />
+                </Button>
+                <TextInput label="Floor Count" name="floorCount" onChange={handleChange} value={formData.floorCount} />
+                <TextInput label="Room Count" name="roomCount" onChange={handleChange} value={formData.roomCount} />
+                <TextInput label="Room Type" name="roomType" onChange={handleChange} value={formData.roomType} />
+                <TextInput label="Address Line 1" name="address1" onChange={handleChange} value={formData.address1} />
+                <TextInput label="Address Line 2" name="address2" onChange={handleChange} value={formData.address2} />
+                <TextInput label="State" name="houseState" onChange={handleChange} value={formData.houseState} />
+                <TextInput label="City" name="houseCity" onChange={handleChange} value={formData.houseCity} />
+                <TextInput label="ZIP Code" name="houseZip" onChange={handleChange} value={formData.houseZip} />
+              </>
+            )}
+          </Box>
+        );
+      
+      case 3:
         return (
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             <TextInput
@@ -141,7 +344,7 @@ const TraderRegisterPage = () => {
       </Button>
 
       <Box sx={{ my: isMobile ? 1 : 2 }}>{renderStepContent(activeStep)}</Box>
-
+      
       <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
         {activeStep === steps.length - 1 ? (
           <Button
@@ -164,7 +367,7 @@ const TraderRegisterPage = () => {
         )}
       </Box>
 
-      <Box sx={{ mt: 2, textAlign: 'center', width: '100%' }}>
+      <Box sx={{ my: 3, textAlign: 'center', width: '100%' }}>
         <Typography variant="body2">
           Already have an account?{' '}
           <a href="/login" style={{ color: '#086cfc', textDecoration: 'none', fontWeight: 'bold' }}>
