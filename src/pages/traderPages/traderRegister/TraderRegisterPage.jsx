@@ -12,19 +12,6 @@ import Company from './components/steps/Company';
 import Team from './components/steps/Team';
 const steps = ['Details', 'Company', 'Team', 'Rates'];
 
-const industries = [
-  'Air Conditioning',
-  'Cleaning',
-  'Electrical',
-  'Gardening',
-  'General Maintenance',
-  'Glazing',
-  'Pest Control',
-  'Plumbing/Gas',
-  'Tree Cutting',
-  'Steelworks',
-];
-
 const TraderRegisterPage = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
@@ -38,8 +25,8 @@ const TraderRegisterPage = () => {
     abn: '', industry: '', otherIndustry: '',
   });
 
-  const [licenses, setLicenses] = useState([]);
-  const [newLicense, setNewLicense] = useState('');
+  const [data, setData] = useState([]);
+  const [newData, setNewData] = useState('');
   const [openModal, setOpenModal] = useState(false);
 
   const theme = useTheme();
@@ -57,15 +44,15 @@ const TraderRegisterPage = () => {
     navigate('/home');
   };
 
-  const handleAddLicense = () => {
-    if (newLicense.trim() === '') return;
-    setLicenses((prev) => [...prev, newLicense.trim()]);
-    setNewLicense('');
+  const handleAddData = () => {
+    if (newData.trim() === '') return;
+    setData((prev) => [...prev, setData.trim()]);
+    setNewData('');
     setOpenModal(false);
   };
 
-  const handleDeleteLicense = (index) => {
-    setLicenses(licenses.filter((_, i) => i !== index));
+  const handleDeleteData = (index) => {
+    setData(data.filter((_, i) => i !== index));
   };
 
   const renderStepContent = (step) => {
@@ -82,27 +69,26 @@ const TraderRegisterPage = () => {
         return <Company 
           formData={formData}
           handleChange={handleChange}
-          licenses={licenses}
-          handleAddLicense={handleAddLicense}
-          handleDeleteLicense={handleDeleteLicense}
+          data={data}
+          handleAddData={handleAddData}
+          handleDeleteData={handleDeleteData}
           openModal={openModal}
           setOpenModal={setOpenModal}
-          newLicense={newLicense}
-          setNewLicense={setNewLicense}
-          industries={industries}
+          newData={newData}
+          setNewData={setNewData}
           setFormData={setFormData} />;
 
       case 2:
         return <Team
           formData={formData}
           handleChange={handleChange}
-          licenses={licenses}
-          handleAddLicense={handleAddLicense}
-          handleDeleteLicense={handleDeleteLicense}
+          data={data}
+          handleAddData={handleAddData}
+          handleDeleteData={handleDeleteData}
           openModal={openModal}
           setOpenModal={setOpenModal}
-          newLicense={newLicense}
-          setNewLicense={setNewLicense} />;
+          newData={newData}
+          setNewData={setNewData} />;
       
       case 3:
         return (

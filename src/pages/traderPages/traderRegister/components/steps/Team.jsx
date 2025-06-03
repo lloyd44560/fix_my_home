@@ -10,28 +10,28 @@ import Modal from '../../../../../components/form/Modal';
 const Team = ({ 
     formData, 
     handleChange, 
-    licenses, 
-    handleAddLicense, 
-    handleDeleteLicense, 
+    data, 
+    handleAddData, 
+    handleDeleteData, 
     openModal, 
     setOpenModal, 
-    newLicense, 
-    setNewLicense, 
+    newData, 
+    setNewData, 
 }) => (
   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
     <Button variant="outlined" fullWidth startIcon={<Add />} onClick={() => setOpenModal(true)} sx={{ my: 2 }}>
       Add team member
     </Button>
 
-    {licenses.length > 0 && (
+    {data.length > 0 && (
       <Paper elevation={2} sx={{ p: 2, mb: 2 }}>
         <Typography variant="subtitle1" gutterBottom>Added Team Members</Typography>
-        {licenses.map((val, index) => (
+        {data.map((val, index) => (
           <Box key={index} display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
             <h1>{val}</h1>
             <Box>
               <IconButton size="small" color="primary"><Edit fontSize="small" /></IconButton>
-              <IconButton size="small" color="error" onClick={() => handleDeleteLicense(index)}><Delete fontSize="small" /></IconButton>
+              <IconButton size="small" color="error" onClick={() => handleDeleteData(index)}><Delete fontSize="small" /></IconButton>
             </Box>
           </Box>
         ))}
@@ -40,13 +40,13 @@ const Team = ({
 
     <Modal 
         open={openModal} 
-        onClose={() => { setNewLicense(''); setOpenModal(false); }} 
-        onSave={handleAddLicense} 
-        value={newLicense} 
+        onClose={() => { setNewData(''); setOpenModal(false); }} 
+        onSave={handleAddData} 
+        value={newData} 
         type='text'
         label='Member Name'
         title='Add new member'
-        onChange={setNewLicense} />
+        onChange={setNewData} />
 
   </Box>
 );

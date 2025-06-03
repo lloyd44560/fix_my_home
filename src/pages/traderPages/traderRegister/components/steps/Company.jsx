@@ -9,17 +9,29 @@ import LabelFor from '../../../../../components/form/LabelFor';
 import { TextInput } from '../../../../../components/form/InputFields';
 import Modal from '../../../../../components/form/Modal';
 
+const industries = [
+  'Air Conditioning',
+  'Cleaning',
+  'Electrical',
+  'Gardening',
+  'General Maintenance',
+  'Glazing',
+  'Pest Control',
+  'Plumbing/Gas',
+  'Tree Cutting',
+  'Steelworks',
+];
+
 const Company = ({ 
     formData, 
     handleChange, 
-    licenses, 
-    handleAddLicense, 
-    handleDeleteLicense, 
+    data, 
+    handleAddData, 
+    handleDeleteData, 
     openModal, 
     setOpenModal, 
-    newLicense, 
-    setNewLicense, 
-    industries, 
+    newData, 
+    setNewData, 
     setFormData 
 }) => (
   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -55,15 +67,15 @@ const Company = ({
       Add another license
     </Button>
 
-    {licenses.length > 0 && (
+    {data.length > 0 && (
       <Paper elevation={2} sx={{ p: 2, mb: 2 }}>
         <Typography variant="subtitle1" gutterBottom>Added Licenses</Typography>
-        {licenses.map((lic, idx) => (
-          <Box key={idx} display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
-            <Typography>Contractor License ***{lic.slice(-4)}</Typography>
+        {data.map((val, index) => (
+          <Box key={index} display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+            <Typography>Contractor License ***{val.slice(-4)}</Typography>
             <Box>
               <IconButton size="small" color="primary"><Edit fontSize="small" /></IconButton>
-              <IconButton size="small" color="error" onClick={() => handleDeleteLicense(idx)}><Delete fontSize="small" /></IconButton>
+              <IconButton size="small" color="error" onClick={() => handleDeleteData(index)}><Delete fontSize="small" /></IconButton>
             </Box>
           </Box>
         ))}
@@ -72,12 +84,12 @@ const Company = ({
 
     <Modal 
         open={openModal} 
-        onClose={() => { setNewLicense(''); setOpenModal(false); }} 
-        onSave={handleAddLicense} 
+        onClose={() => { setNewData(''); setOpenModal(false); }} 
+        onSave={handleAddData} 
         label='License Number'
         title='Add License'
-        value={newLicense} 
-        onChange={setNewLicense} />
+        value={newData} 
+        onChange={setNewData} />
 
     <FormControlLabel
       label="Is your company currently registered for GST?"
