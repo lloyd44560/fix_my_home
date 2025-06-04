@@ -25,8 +25,8 @@ const TraderRegisterPage = () => {
     city: '', 
   });
 
-  const [data, setData] = useState([]);
-  const [newData, setNewData] = useState('');
+  const [licenses, setLicenses] = useState([]);
+  const [newLicense, setNewLicense] = useState('');
   const [openModal, setOpenModal] = useState(false);
 
   const theme = useTheme();
@@ -44,15 +44,15 @@ const TraderRegisterPage = () => {
     navigate('/home');
   };
 
-  const handleAddData = () => {
-    if (newData.trim() === '') return;
-    setData((prev) => [...prev, setData.trim()]);
-    setNewData('');
+  const handleAddLicense = () => {
+    if (newLicense.trim() === '') return;
+    setLicenses((prev) => [...prev, newLicense.trim()]);
+    setNewLicense('');
     setOpenModal(false);
   };
 
-  const handleDeleteData = (index) => {
-    setData(data.filter((_, i) => i !== index));
+  const handleDeleteLicense = (index) => {
+    setLicenses(licenses.filter((_, i) => i !== index));
   };
 
   const renderStepContent = (step) => {
@@ -69,31 +69,26 @@ const TraderRegisterPage = () => {
         return <Company 
           formData={formData}
           handleChange={handleChange}
-          data={data}
-          handleAddData={handleAddData}
-          handleDeleteData={handleDeleteData}
+          licenses={licenses}
+          handleAddLicense={handleAddLicense}
+          handleDeleteLicense={handleDeleteLicense}
           openModal={openModal}
           setOpenModal={setOpenModal}
-<<<<<<< HEAD
           newLicense={newLicense}
           setNewLicense={setNewLicense}
-=======
-          newData={newData}
-          setNewData={setNewData}
->>>>>>> origin
           setFormData={setFormData} />;
 
       case 2:
         return <Team
           formData={formData}
           handleChange={handleChange}
-          data={data}
-          handleAddData={handleAddData}
-          handleDeleteData={handleDeleteData}
+          licenses={licenses}
+          handleAddLicense={handleAddLicense}
+          handleDeleteLicense={handleDeleteLicense}
           openModal={openModal}
           setOpenModal={setOpenModal}
-          newData={newData}
-          setNewData={setNewData} />;
+          newLicense={newLicense}
+          setNewLicense={setNewLicense} />;
       
       case 3:
         return <Rates 
