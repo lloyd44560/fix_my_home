@@ -19,6 +19,39 @@ export const TextInput = ({ label, name, type = 'text', value, onChange, ...prop
   />
 );
 
+export const SmallTextInput = ({
+  label,
+  name,
+  type = 'text',
+  value,
+  onChange,
+  ...props
+}) => (
+  <TextField
+    id={name}
+    label={label}
+    name={name}
+    type={type}
+    value={value}
+    onChange={onChange}
+    fullWidth
+    size="small"
+    variant="outlined"
+    sx={{
+      borderRadius: 2,
+      '& .MuiOutlinedInput-root': {
+        borderRadius: 2,
+        fontSize: '0.875rem', // slightly smaller text
+        padding: '6px 10px',
+      },
+      '& .MuiInputLabel-root': {
+        fontSize: '0.75rem', // smaller label
+      },
+    }}
+    {...props}
+  />
+);
+
 export const NumberInput = ({
   label, 
   name, 
