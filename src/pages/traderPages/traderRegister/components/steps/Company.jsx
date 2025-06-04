@@ -20,7 +20,7 @@ const industries = [
   'Plumbing/Gas',
   'Tree Cutting',
   'Steelworks',
-];
+]
 
 const Company = ({ 
     formData, 
@@ -30,8 +30,8 @@ const Company = ({
     handleDeleteData, 
     openModal, 
     setOpenModal, 
-    newData, 
-    setNewData, 
+    newLicense, 
+    setNewLicense, 
     setFormData 
 }) => (
   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -62,40 +62,43 @@ const Company = ({
       <LabelFor name="contractorLicence" text="Contractor license number" />
       <TextInput name="contractorLicence" onChange={handleChange} value={formData.contractorLicence} />
     </Box>
+    <Box>
+      <Button variant="outlined" fullWidth startIcon={<Add />} onClick={() => setOpenModal(true)} sx={{ my: 2 }}>
+        Add another license
+      </Button>
 
-    <Button variant="outlined" fullWidth startIcon={<Add />} onClick={() => setOpenModal(true)} sx={{ my: 2 }}>
-      Add another license
-    </Button>
-
-    {data.length > 0 && (
-      <Paper elevation={2} sx={{ p: 2, mb: 2 }}>
-        <Typography variant="subtitle1" gutterBottom>Added Licenses</Typography>
-        {data.map((val, index) => (
-          <Box key={index} display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
-            <Typography>Contractor License ***{val.slice(-4)}</Typography>
-            <Box>
-              <IconButton size="small" color="primary"><Edit fontSize="small" /></IconButton>
-              <IconButton size="small" color="error" onClick={() => handleDeleteData(index)}><Delete fontSize="small" /></IconButton>
+      {licenses.length > 0 && (
+        <Paper elevation={2} sx={{ p: 2, mb: 2 }}>
+          <Typography variant="subtitle1" gutterBottom>Added Licenses</Typography>
+          {licenses.map((lic, idx) => (
+            <Box key={idx} display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+              <Typography>Contractor License ***{lic.slice(-4)}</Typography>
+              <Box>
+                <IconButton size="small" color="primary"><Edit fontSize="small" /></IconButton>
+                <IconButton size="small" color="error" onClick={() => handleDeleteLicense(idx)}><Delete fontSize="small" /></IconButton>
+              </Box>
             </Box>
-          </Box>
-        ))}
-      </Paper>
-    )}
+          ))}
+        </Paper>
+      )}
 
-    <Modal 
-        open={openModal} 
-        onClose={() => { setNewData(''); setOpenModal(false); }} 
-        onSave={handleAddData} 
-        label='License Number'
-        title='Add License'
-        value={newData} 
-        onChange={setNewData} />
+      <Modal 
+          open={openModal} 
+          onClose={() => { setNewLicense(''); setOpenModal(false); }} 
+          onSave={handleAddLicense} 
+          label='License Number'
+          title='Add License'
+          value={newLicense} 
+          onChange={setNewLicense} />
+    </Box>
 
-    <FormControlLabel
-      label="Is your company currently registered for GST?"
-      control={<Switch checked={formData.gstRegistered} onChange={(e) => setFormData({ ...formData, gstRegistered: e.target.checked })} />}
-    />
-
+    <Box>
+      <FormControlLabel
+        label="Is your company currently registered for GST?"
+        control={<Switch checked={formData.gstRegistered} onChange={(e) => setFormData({ ...formData, gstRegistered: e.target.checked })} />}
+      />
+    </Box>
+    
     <Box>
       <LabelFor name="abn" text="Australian Business Number (ABN)" />
       <TextInput name="abn" onChange={handleChange} value={formData.abn} />
@@ -113,10 +116,10 @@ const Company = ({
 
     <Box>
       <LabelFor name="otherExpertise" text="Other areas of expertise (optional)" />
-      <TextInput select name="otherExpertise" value={formData.otherIndustry} onChange={handleChange}>
+      <TextInput select name="otherExpertise" value={formData.otherExpertise} onChange={handleChange}>
         <MenuItem value="" disabled>Choose an industry...</MenuItem>
-        {industries.map((otherIndustry) => (
-          <MenuItem key={otherIndustry} value={formData.otherIndustry}>{otherIndustry}</MenuItem>
+        {industries.map((industry) => (
+          <MenuItem key={industry} value={industry}>{industry}</MenuItem>
         ))}
       </TextInput>
     </Box>

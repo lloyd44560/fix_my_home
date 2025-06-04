@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import {
-  Button, Box, MenuItem, 
   useMediaQuery, useTheme,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { TextInput } from '../../../components/form/InputFields';
 import ButtonFooter from './components/ButtonFooter';
 
 import Details from './components/steps/Details';
 import Company from './components/steps/Company';
 import Team from './components/steps/Team';
+import Rates from './components/steps/Rates';
 const steps = ['Details', 'Company', 'Team', 'Rates'];
 
 const TraderRegisterPage = () => {
@@ -22,11 +21,12 @@ const TraderRegisterPage = () => {
     name: '', email: '', password: '', confirmPassword: '', phone: '',
     companyType: '', companyName: '', companyAddress: '', companyEmail: '',
     companyLandline: '', contractorLicence: '', license: '', gstRegistered: false,
-    abn: '', industry: '', otherIndustry: '',
+    abn: '', industry: '', otherExpertise: '', state: '', municipality: '',
+    city: '', 
   });
 
-  const [data, setData] = useState([]);
-  const [newData, setNewData] = useState('');
+  const [licenses, setLicenses] = useState([]);
+  const [newLicense, setNewLicense] = useState('');
   const [openModal, setOpenModal] = useState(false);
 
   const theme = useTheme();
@@ -44,15 +44,15 @@ const TraderRegisterPage = () => {
     navigate('/home');
   };
 
-  const handleAddData = () => {
-    if (newData.trim() === '') return;
-    setData((prev) => [...prev, setData.trim()]);
-    setNewData('');
+  const handleAddLicense = () => {
+    if (newLicense.trim() === '') return;
+    setLicenses((prev) => [...prev, newLicense.trim()]);
+    setNewLicense('');
     setOpenModal(false);
   };
 
-  const handleDeleteData = (index) => {
-    setData(data.filter((_, i) => i !== index));
+  const handleDeleteLicense = (index) => {
+    setLicenses(licenses.filter((_, i) => i !== index));
   };
 
   const renderStepContent = (step) => {
@@ -69,59 +69,32 @@ const TraderRegisterPage = () => {
         return <Company 
           formData={formData}
           handleChange={handleChange}
-          data={data}
-          handleAddData={handleAddData}
-          handleDeleteData={handleDeleteData}
+          licenses={licenses}
+          handleAddLicense={handleAddLicense}
+          handleDeleteLicense={handleDeleteLicense}
           openModal={openModal}
           setOpenModal={setOpenModal}
-          newData={newData}
-          setNewData={setNewData}
+          newLicense={newLicense}
+          setNewLicense={setNewLicense}
           setFormData={setFormData} />;
 
       case 2:
         return <Team
           formData={formData}
           handleChange={handleChange}
-          data={data}
-          handleAddData={handleAddData}
-          handleDeleteData={handleDeleteData}
+          licenses={licenses}
+          handleAddLicense={handleAddLicense}
+          handleDeleteLicense={handleDeleteLicense}
           openModal={openModal}
           setOpenModal={setOpenModal}
-          newData={newData}
-          setNewData={setNewData} />;
+          newLicense={newLicense}
+          setNewLicense={setNewLicense} />;
       
       case 3:
-        return (
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <TextInput
-              select
-              label="Upload Option"
-              name="uploadOption"
-              value={formData.uploadOption}
-              onChange={handleChange}
-            >
-              <MenuItem value="manual">Manually Upload Property Details</MenuItem>
-              <MenuItem value="report">Upload Property Reports</MenuItem>
-            </TextInput>
-
-            {formData.uploadOption === 'manual' && (
-              <>
-                <Button variant="outlined" component="label" sx={{ borderRadius: 2 }}>
-                  Upload Property Photo
-                  <input type="file" hidden name="propertyImage" onChange={handleChange} />
-                </Button>
-                <TextInput label="Floor Count" name="floorCount" onChange={handleChange} value={formData.floorCount} />
-                <TextInput label="Room Count" name="roomCount" onChange={handleChange} value={formData.roomCount} />
-                <TextInput label="Room Type" name="roomType" onChange={handleChange} value={formData.roomType} />
-                <TextInput label="Address Line 1" name="address1" onChange={handleChange} value={formData.address1} />
-                <TextInput label="Address Line 2" name="address2" onChange={handleChange} value={formData.address2} />
-                <TextInput label="State" name="houseState" onChange={handleChange} value={formData.houseState} />
-                <TextInput label="City" name="houseCity" onChange={handleChange} value={formData.houseCity} />
-                <TextInput label="ZIP Code" name="houseZip" onChange={handleChange} value={formData.houseZip} />
-              </>
-            )}
-          </Box>
-        );
+        return <Rates 
+          formData={formData}
+          handleChange={handleChange}
+          setFormData={setFormData} />;
 
       default:
         return null;
