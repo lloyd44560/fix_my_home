@@ -44,14 +44,14 @@ const Rates = ({
       </TextInput>
     </Box>
     <Box>
-      <LabelFor name="municipality" text="Municipality" />
+      <LabelFor name="municipality" text="Municipality" required='yes' />
       <TextInput select required name="municipality" value={formData.municipality} onChange={handleChange}>
         <MenuItem value="one">Option 1</MenuItem>
         <MenuItem value="two">Option 2</MenuItem>
       </TextInput>
     </Box>
     <Box>
-      <LabelFor name="city" text="city" />
+      <LabelFor name="city" text="City" required='yes' />
       <TextInput select required name="city" value={formData.city} onChange={handleChange}>
         <MenuItem value="one">Option 1</MenuItem>
         <MenuItem value="two">Option 2</MenuItem>
@@ -66,7 +66,7 @@ const Rates = ({
       <TextInput name="addressLineTwo" onChange={handleChange} value={formData.addressLineTwo} />
     </Box>
     <Box>
-      <LabelFor name="postalCode" text="Postal Code" />
+      <LabelFor name="postalCode" text="Postal Code" required='yes' />
       <TextInput name="postalCode" onChange={handleChange} placeholder='3070' value={formData.postalCode} />
     </Box>
   </Box>
