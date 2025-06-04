@@ -13,13 +13,13 @@ import RateInput from '../RateInput';
 const Team = ({ 
     formData, 
     handleChange, 
-    licenses, 
-    handleAddLicense, 
-    handleDeleteLicense, 
+    data, 
+    handleAddData, 
+    handleDeleteData, 
     openModal, 
     setOpenModal, 
-    newLicense, 
-    setNewLicense, 
+    newData, 
+    setNewData, 
 }) => (
   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
     <Box>

@@ -176,7 +176,8 @@ const RenterRegistration = () => {
       >
         Register as Renter
         <br></br>
-        <br></br>
+         <br></br>
+
       </Typography>
 
       <Stepper
@@ -223,9 +224,7 @@ const RenterRegistration = () => {
             color: '#fff',
             '&:hover': {
               backgroundColor: '#4da1ff', // lighter blue on hover
-            },
-    
-              
+            },          
               borderRadius: 2, px: isMobile ? 2 : 4 }}
           >
             Submit
@@ -234,10 +233,10 @@ const RenterRegistration = () => {
           <Button
             variant="contained"
             onClick={handleNext}
-            fullWidth
+           fullWidth
             sx={{ 
               backgroundColor: '#086cfc',
-                '&:hover': {
+               '&:hover': {
               backgroundColor: '#4da1ff', // lighter blue on hover
               },
             
@@ -251,15 +250,15 @@ const RenterRegistration = () => {
           
         )}
       </Box>
-      {/* Link to Login */}
-      <Box sx={{ mt: 2, textAlign: 'center', width: '100%' }}>
-        <Typography variant="body2">
-          Already have an account?{' '}
-          <a href="/login" style={{ color: '#086cfc', textDecoration: 'none', fontWeight: 'bold' }}>
-            Login Here
-          </a>
-        </Typography>
-      </Box>
+        {/* Link to Login */}
+       <Box sx={{ mt: 2, textAlign: 'center', width: '100%' }}>
+          <Typography variant="body2">
+            Already have an account?{' '}
+            <a href="/login" style={{ color: '#086cfc', textDecoration: 'none', fontWeight: 'bold' }}>
+              Login Here
+            </a>
+          </Typography>
+        </Box>
             
     </Box>
   );

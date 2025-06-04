@@ -25,9 +25,9 @@ const industries = [
 const Company = ({ 
     formData, 
     handleChange, 
-    licenses, 
-    handleAddLicense, 
-    handleDeleteLicense, 
+    data, 
+    handleAddData, 
+    handleDeleteData, 
     openModal, 
     setOpenModal, 
     newLicense, 
